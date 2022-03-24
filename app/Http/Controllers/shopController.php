@@ -19,4 +19,19 @@ class shopController extends Controller
         $carts = Cart::all();
         return view('mycart',compact('carts'));
     }
+
+    public function addMyCart(Request $request)
+    {
+        $user_id = 1;
+        $stock_id=$request->stock_id;
+        $cart_add_info=Cart::firstOrCreate(['stock_id' => $stock_id,'user_id' => $user_id]);
+        if($cart_add_info->wasRecentlyCreated){
+            $message = '商品の追加完了！';
+        }
+        else{
+            $message = '既にカートに入っています。';
+        }
+        $my_carts = Cart::where('user_id',$user_id)->get();
+        return view('mycart',compact('my_carts' , 'message'));
+    }
 }
