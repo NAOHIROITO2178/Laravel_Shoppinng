@@ -43,4 +43,11 @@ class shopController extends Controller
         $my_carts = $cart->showCart();
         return view('mycart',compact('my_carts' , 'message'));
     }
+
+    public function checkout(Cart $cart)
+     {
+        $checkout_info = $cart->checkoutCart();
+        Mail::to('test@example.com')->send(new Thanks); 
+        return view('checkout');
+     }
 }
