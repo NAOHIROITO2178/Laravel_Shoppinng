@@ -34,4 +34,13 @@ class shopController extends Controller
         $my_carts = Cart::where('user_id',$user_id)->get();
         return view('mycart',compact('my_carts' , 'message'));
     }
+
+    public function deleteCart(Request $request, Cart $cart)
+    {
+        $stock_id=$request->stock_id;
+        $user = auth()->user();
+        $message = $cart->deleteMyCart($user->id, $stock_id);
+        $my_carts = $cart->showCart();
+        return view('mycart',compact('my_carts' , 'message'));
+    }
 }

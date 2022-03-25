@@ -22,5 +22,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth'], function() {
-   Route::get('/mycart', 'ShopController@myCart');
+   Route::get('/mycart', 'shopController@myCart');
 });
+
+Route::post('/cartdelete', 'shopController@deleteCart');
